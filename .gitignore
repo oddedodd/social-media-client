@@ -1,2 +1,10 @@
+# Mac OS X Finder files
+.DS_Store
+
+# Node modules
 /node_modules
+
 /dist
+
+# ESLint cache
+.eslintcache%
