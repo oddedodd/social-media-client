@@ -1,6 +1,4 @@
 import globals from "globals";
-// eslint.config.mjs
-
 import cypressPlugin from "eslint-plugin-cypress"; // Import Cypress plugin
 import jestPlugin from "eslint-plugin-jest"; // Import Jest plugin
 
@@ -11,15 +9,15 @@ export default [
       ecmaVersion: "latest", // Set the ECMAScript version to the latest
       sourceType: "module", // Use ECMAScript modules
       globals: {
-        browser: true, // Enable browser global variables
-        es2021: true, // Enable ES2021 global variables
-        node: true, // Enable Node.js global variables
+        ...globals.browser, // Enable browser global variables
+        ...globals.es2021, // Enable ES2021 global variables
+        ...globals.node, // Enable Node.js global variables
       },
     },
     rules: {
       // Place any global ESLint rules here
     },
-    plugins: [],
+    plugins: {}, // General plugins (leave empty or add others if needed)
     linterOptions: {
       reportUnusedDisableDirectives: true, // Extra option to report unused eslint-disable directives
     },
@@ -28,10 +26,10 @@ export default [
     // Cypress-specific configuration
     files: ["**/*.cy.js"],
     plugins: {
-      cypress: cypressPlugin,
+      cypress: cypressPlugin, // Define Cypress plugin as an object
     },
     languageOptions: {
-      globals: cypressPlugin.configs.recommended.env,
+      globals: { ...cypressPlugin.configs.recommended.env }, // Enable Cypress environment variables
     },
     rules: {
       "cypress/no-unnecessary-waiting": "off", // Disable unnecessary waiting rule
@@ -45,10 +43,10 @@ export default [
     // Jest-specific configuration
     files: ["**/*.test.js", "**/*.spec.js"], // Apply to test files
     plugins: {
-      jest: jestPlugin,
+      jest: jestPlugin, // Define Jest plugin as an object
     },
     languageOptions: {
-      globals: jestPlugin.configs.recommended.env, // Enable Jest environment variables
+      globals: { ...jestPlugin.configs.recommended.env }, // Enable Jest environment variables
     },
     rules: {
       // Jest recommended rules
