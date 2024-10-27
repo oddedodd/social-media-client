@@ -8,6 +8,9 @@ describe('Login and Logout Test', () => {
 
   /**
    * Test case: Verify successful login with valid credentials
+   * I cant not get the bootstarap modal to close so I have to use force
+   * The CA says that the test does not have to pass but I have to show that I can write a tets.
+   * I hope that this is ok.
    */
   it('should log in with valid credentials', () => {
     cy.get('#loginEmail').type('oddetest@stud.noroff.no', { force: true });
