@@ -1,59 +1,50 @@
 import globals from "globals";
-import cypressPlugin from "eslint-plugin-cypress"; // Import Cypress plugin
-import jestPlugin from "eslint-plugin-jest"; // Import Jest plugin
+import cypressPlugin from "eslint-plugin-cypress";
+import jestPlugin from "eslint-plugin-jest";
 
 export default [
   {
-    files: ["**/*.js"], // Apply rules to all JavaScript files
+    files: ["**/*.js"],
     languageOptions: {
-      ecmaVersion: "latest", // Set the ECMAScript version to the latest
-      sourceType: "module", // Use ECMAScript modules
+      ecmaVersion: "latest",
+      sourceType: "module",
       globals: {
-        ...globals.browser, // Enable browser global variables
-        ...globals.es2021, // Enable ES2021 global variables
-        ...globals.node, // Enable Node.js global variables
+        ...globals.browser,
+        ...globals.es2021,
+        ...globals.node,
       },
     },
-    rules: {
-      // Place any global ESLint rules here
-    },
-    plugins: {}, // General plugins (leave empty or add others if needed)
+    rules: {},
+    plugins: {},
     linterOptions: {
-      reportUnusedDisableDirectives: true, // Extra option to report unused eslint-disable directives
+      reportUnusedDisableDirectives: true,
     },
   },
   {
-    // Cypress-specific configuration
     files: ["**/*.cy.js"],
     plugins: {
-      cypress: cypressPlugin, // Define Cypress plugin as an object
+      cypress: cypressPlugin,
     },
     languageOptions: {
-      globals: { ...cypressPlugin.configs.recommended.env }, // Enable Cypress environment variables
+      globals: { ...cypressPlugin.configs.recommended.env },
     },
     rules: {
-      "cypress/no-unnecessary-waiting": "off", // Disable unnecessary waiting rule
-      "no-unused-vars": "off", // Disable unused variables rule
+      "cypress/no-unnecessary-waiting": "off",
+      "no-unused-vars": "off",
     },
-    settings: {
-      // Place any Cypress-specific settings if needed
-    },
+    settings: {},
   },
   {
-    // Jest-specific configuration
-    files: ["**/*.test.js", "**/*.spec.js"], // Apply to test files
+    files: ["**/*.test.js", "**/*.spec.js"],
     plugins: {
-      jest: jestPlugin, // Define Jest plugin as an object
+      jest: jestPlugin,
     },
     languageOptions: {
-      globals: { ...jestPlugin.configs.recommended.env }, // Enable Jest environment variables
+      globals: { ...jestPlugin.configs.recommended.env },
     },
     rules: {
-      // Jest recommended rules
       ...jestPlugin.configs.recommended.rules,
     },
-    settings: {
-      // Place any Jest-specific settings if needed
-    },
+    settings: {},
   },
 ];
